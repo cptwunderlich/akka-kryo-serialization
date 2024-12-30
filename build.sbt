@@ -11,7 +11,7 @@ val mainScalaVersion = "3.3.1"
 val secondayScalaVersions = Seq("2.12.18", "2.13.12")
 
 val kryoVersion = "5.4.0"
-val defaultAkkaVersion = "2.6.20"
+val defaultAkkaVersion = "2.6.21"
 val akkaVersion =
   System.getProperty("akka.build.version", defaultAkkaVersion) match {
     case "default" => defaultAkkaVersion
@@ -69,7 +69,7 @@ lazy val pekkoCompat: Project = Project("akka-kryo-serialization-pekko-compat", 
 // Dependencies
 lazy val coreDeps = Seq(
   "com.esotericsoftware" % "kryo" % kryoVersion,
-  ("com.typesafe.akka" %% "akka-actor" % akkaVersion).cross(CrossVersion.for3Use2_13),
+  ("com.typesafe.akka" %% "akka-actor" % akkaVersion),
   "org.agrona" % "agrona" % "1.15.1", // should match akka-remote/aeron inherited version
   "org.lz4" % "lz4-java" % "1.8.0",
   "commons-io" % "commons-io" % "2.11.0" % Test,
@@ -78,14 +78,13 @@ lazy val coreDeps = Seq(
 lazy val typedDeps = Seq(
   "com.typesafe.akka" %% "akka-actor-typed" % akkaVersion,
   "com.typesafe.akka" %% "akka-actor-testkit-typed" % akkaVersion % Test
-).map(_.cross(CrossVersion.for3Use2_13))
+)
 
 lazy val testingDeps = Seq(
   "org.scalatest" %% "scalatest" % "3.2.14" % Test,
   "ch.qos.logback" % "logback-classic" % "1.2.11" % Test,
-  ("com.typesafe.akka" %% "akka-testkit" % akkaVersion % Test).cross(CrossVersion.for3Use2_13),
-  ("com.typesafe.akka" %% "akka-persistence" % akkaVersion % Test).cross(CrossVersion.for3Use2_13)
-)
+  ("com.typesafe.akka" %% "akka-testkit" % akkaVersion % Test),
+  ("com.typesafe.akka" %% "akka-persistence" % akkaVersion % Test))
 
 
 // Settings
