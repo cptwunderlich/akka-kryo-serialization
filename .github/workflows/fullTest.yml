@@ -15,6 +15,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '${{ matrix.java }}'
-          distribution: 'adopt'
+          distribution: 'temurin'
+          cache: 'sbt'
       - name: Run tests with Akka 2.6 and Scala 2.12,2.13,3.1
         run: sbt +test +doc
